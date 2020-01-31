@@ -20,18 +20,21 @@ CG_LIB = /u/sw/pkgs/toolchains/gcc-glibc/7/pkgs/cgal/4.9/lib/
 BOOST_INC = /vagrant/boost
 
 # Enter Qhull include directory
-QHULL_INC = /u/sw/pkgs/toolchains/gcc-glibc/7/pkgs/qhull/2015.2/include/
-QHULL_LIB = /vagrant/ProjectPacs/qhull-lib
+QHULL_INC = /vagrant/qhull-2019.1/src
+QHULL_LIB = /vagrant/qhull-lib
 
 # Enter the directory where the GetPot header is (needed only by the executables):
-GETPOT_INC = /vagrant/ProjectPacs/DGCode/include
+GETPOT_INC = /vagrant/PolygonDg/DGCode/externalinclude
+
+# Enter the directory where the external header muParserXInterface is :
+EXT_INC = /vagrant/PolygonDg/DGCode/externalinclude
 
 #enter other directories if needed
 OTHER_INC=
 OTHER_LIB=
 
 # Enter the directory where you want to install the library
-POLYGONDG_PATH = /home/nicola/Scrivania/ProjectPacs
+POLYGONDG_PATH = /vagrant/
 
 ##########
 # Compiler
@@ -58,7 +61,7 @@ endif
 
 CXXFLAGS += $(WFLAGS) $(STDFLAG) $(OPTFLAGS)
 
-ALL_INC_DIR= $(EIGEN_INC) $(MUPX_INC) $(EIGEN_INC_UN) $(QHULL_INC) $(CG_INC) $(BOOST_INC) $(OTHER_INC)
+ALL_INC_DIR= $(EIGEN_INC) $(MUPX_INC) $(EIGEN_INC_UN) $(QHULL_INC) $(CG_INC) $(BOOST_INC) $(OTHER_INC) $(EXT_INC)
 INCLS := $(foreach inc,$(ALL_INC_DIR),-I$(inc) )
 
 ALL_LIB_DIR=$(MUPX_LIB) $(CG_LIB) $(QHULL_LIB) $(QHULL_LIB) $(OTHER_LIB)
@@ -73,5 +76,5 @@ LD_FLAGS += $(LIBD)
 #############
 # Directories
 #############
-POLYGONDG_INC = $(POLYGONDG_PATH)/PolygonDg/include
-POLYGONDG_LIB = $(POLYGONDG_PATH)/PolygonDg/lib
+POLYGONDG_INC = $(POLYGONDG_PATH)/PolygonDgLib/include
+POLYGONDG_LIB = $(POLYGONDG_PATH)/PolygonDgLib/lib

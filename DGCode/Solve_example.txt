@@ -1,5 +1,5 @@
 ﻿# number of elements (be carefull if you are using polygons or triangles) 
-ne = 800
+ne = 200
 
 # density 
 rho = 1.0
