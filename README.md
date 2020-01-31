@@ -111,5 +111,5 @@ make test RELEASE=yes
 ```
 in order to compile the examples. Again remember to specify `RELEASE=yes` for the optimization.
 
-Then you can run the exacutables and you can modify the .txt files to change parameters
+Then you can run the executables and you can modify the .txt files to change parameters
 of the problem and some other options.
