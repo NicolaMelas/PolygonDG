@@ -1,0 +1,3 @@
+# number of elements
+ne = 100
+

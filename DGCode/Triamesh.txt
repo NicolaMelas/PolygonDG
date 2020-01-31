@@ -1,0 +1,3 @@
+# number of subdivision along the edge 
+ne = 7
+

@@ -1,0 +1,138 @@
+namespace PolygonDG {
+/*!
+	@mainpage Introduction to the library
+
+	%PolygonDG is a library for the approximation of elastodynamics problems with Discontinuous
+	Galerkin finite element methods on polygonal grids.
+	It makes use of the algebraic method to solve the system. The Matrices are in general
+	time indipendent, unless density changes in time. All the Matrixes are assembled toghether
+	to speed up the assembling part, without repeating a big number of cycle.
+	It is written in C++14.
+
+	@section Femdg DG finite element methods
+		Discontinuous Galerkin methods are methods that works very well with many types of problem.
+		With respect to the continuous framework the Dg methods offer the possibility of handling meshes with
+		general-shaped elements without any difficulty.
+		Meshes made of general polygonal elements can be useful in many problems, especially when
+		we have to deal with domains that present small details or microstructures or different materials;
+		these features would need too many @a classical triangle
+		elements to be described and so too many degrees of freedom.
+
+	@section getting_started Getting started
+		To solve the elastodynamics	equation, you have to deal with these subsequent steps: build a Mesh using the
+		MeshGenerator implicitly or explicitly, the creation of the Neighbour (adiacency info), the creation of the FeSpace and of
+		the BoundaryConditions and finally the instantation of the Problem.
+
+	@note	You have to use the namespace PolygonDG to access each class, function and
+		type in the library .
+		For brevity we will neglect it in the following examples.
+
+	@subsection mesh Reading the mesh
+		@code
+			// Define a Mesh
+			Mesh Th;
+			// Define a MeshGenerator
+			PolyGenerator gen(domain, number_elements);
+			gen.generate(Mesh);
+		@endcode
+
+		The build a mesh is simple, you have to declare or the Mesh with its constructor with 2 points,
+		the number of elements and the type or you build a default empty mesh and a generator that
+		fills the mesh.
+		The library provides a class PolGenerator that inherits from MeshGenerator to build a
+		polygonal mesh and a class TriaGenerator to build a triangular mesh. The PolyGenerator
+		is based on the Polymesher algorithm written on Matlab.
+		(see https://link.springer.com/article/10.1007/s00158-011-0706-z)
+
+
+	@subsection fespace Creating the FeSpace
+		@code
+			// Degree of the polynomials in the FeSpace
+			unsigned degree    = 2;
+			//Adiacency info
+			Neighbour neighbour;
+			// Define a FeSpace
+			FeSpace Vh(Th, neighbour, degree);
+	@endcode
+
+		So, for the creation of the FeSpace, in the constructor you have to pass
+		the Mesh Th togheter with the Neighbour and the degree of the polynomials in the FeSpace.
+
+		@remark
+			The method makes use of legendre polynomials to construct the basis of the
+			FeSpace through the functions in Legendre.hpp.
+
+		The quadrature Rule is set by default. GaussQuadrature is used, with exact degree
+		2*degree+1.
+
+@subsection bc Boundary condition
+	Before proceding the the instantition of the problem it's necessary to define Boundary Conditions.
+			@code
+				//Function containint where to apply BC
+				std::function<bool(Point2D)>inside = ...;
+				//Define the tag
+				int tag = -2;
+				DirichletBC diri1(inside, Muparser source_x, Muparser source_y, tag, coeff);
+			@endcode
+
+Note that the tag must be negative. Positive tags are for internal edges.
+
+		@subsection problem Instantation of the Problem
+			@code
+				//Coefficients containint data to solve the problem, source, lam, rho, mu, dt
+				Coefficients coeff;
+				//Define BC
+				DirichletBC diri1(....);
+				std::vector<std::shared_ptr<BoundaryCondition>> BCs;
+				BCs.push_back(std::make_shared<DirichletBC>(diri1));
+				// Define a problem
+				ElastodynamicsProblem problem(Vh, coeff, BCs);
+			@endcode
+
+			The instantation of the Problem is the key part of the program.
+			The fespace is passed to give the properties of the basis function to
+			build the matrices associated to the variational formulations, through data inside
+			FeElement. The BCs define the tags on the boundary to distinguish where to impose one
+			rather than	another.
+
+			During the FeSpace instantiation, it was saved a vector of FeElements to save all the values
+			of the basis function at the quadrature nodes. In this way, all the information, passed
+			by reference are quickly available to the problem to assemble the matrices.
+
+			The assemble function, after building the Matrices, it builds the source, adding
+			also the effects of boundary conditions and/or jumps.
+			At the end, M(mass) and A(stiffness) matrices are available also to getter methods.
+
+			At the end the solve method uses the LeapFrog formulation to solve the system.
+
+				@note
+					SparseMatrices are in compressed mode when solve is called.
+
+			The solving procedure is done in this way:
+
+			@subsubsection solution Solution of the linear system
+				@code
+					// Solve with LU sparse decomposition
+					Eigen::SparseLU<SparseMatrix>Solver;
+					Solver.compute(M);
+					problem.solve();
+				@endcode
+
+				Eventually the solution of the linear system can be obtained through four
+				methods provided by the class Problem exploiting the library Eigen
+				(see https://eigen.tuxfamily.org/dox/group__TopicSparseSystems.html for more
+				information).@n
+
+				@code
+					// Export the solution
+					exportfunctionvtk(Vh,u,"solution.vtu");
+					// Compute the L2 norm of the error
+					Real errL2  = L2_error(solution, Muparser uex, Muparser uey);
+
+				@endcode
+
+			At very last you can export the solution in a VTK format in order to visualize it
+			or you can compute the L2 norm of the error if you know the
+			analytical solution.
+*/
+}

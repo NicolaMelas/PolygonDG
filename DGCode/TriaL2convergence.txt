@@ -1,0 +1,48 @@
+# number of subdivision along the edge 
+ne0 = 4
+ne1 = 8
+ne2 = 16
+ne3 = 32
+
+#repetition
+reps = 4
+
+# density 
+rho = 1.0
+
+#Lamè parameters
+mu = 1.0
+lam = 1.0
+
+#initial time
+t0 = 0
+
+#final time
+T = 0.15
+
+#temporal step
+dt = 0.0001
+
+#polynomial degree
+fem_degree = 4
+
+# dg penalty coeff
+penalty_coeff = 10
+
+#source of the equation in strong form (first and second component)
+#x, y and t are respectively x[0], x[1], x[2]
+
+source_1 = sin(sqrt(2)*pi*x[2])*(2*pi^2*cos(pi*x[1])*sin(pi*x[1])*(2*mu-rho+cos(2*pi*x[0])*(rho-4*mu)))
+source_2 = sin(sqrt(2)*pi*x[2])*(-2*pi^2*cos(pi*x[0])*sin(pi*x[0])*(2*mu-rho+cos(2*pi*x[1])*(rho-4*mu)))
+
+#exact solution to compute convergence rate (first and second component)
+exact_sol_1 = sin(sqrt(2)*pi*x[2])*(sin(pi*x[0])^2*sin(2*pi*x[1]))
+exact_sol_2 = sin(sqrt(2)*pi*x[2])*(-sin(pi*x[1])^2*sin(2*pi*x[0]))
+
+#neumann source on the top domain 
+neumann_1 = 2*pi*mu*sin(sqrt(2)*pi*x[2])*(sin(pi*x[0])^2*cos(2*pi*x[1])-sin(pi*x[1])^2*cos(2*pi*x[0]))
+neumann_2 = -2*pi*mu*sin(sqrt(2)*pi*x[2])*(sin(2*pi*x[0])*sin(2*pi*x[1]))
+ 
+
+
+
