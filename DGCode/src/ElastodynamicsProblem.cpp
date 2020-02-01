@@ -264,7 +264,7 @@ namespace PolygonDG {
     S.prune(double(0),1e-10);
 
     //Summing to obtain the whole Stiffness matrix
-    A = V + S - IT - SparseMatrixXd(IT.transpose());
+    A = V + S - IT + method * SparseMatrixXd(IT.transpose());
 
     //Assembling finally the right hand side
     //Evaluation of the source
@@ -323,6 +323,12 @@ namespace PolygonDG {
     for (auto bc : BCs) {
       bc->apply(f, femregion, time);
     }
+  }
+
+  void ElastodynamicsProblem::set_method(int met) {
+    if(met !=-1 && met !=1 && met !=0)
+      throw std::runtime_error("The function set_method can set only values: -1, 1 or 0")
+    method = met;
   }
 
 

@@ -55,6 +55,8 @@ namespace PolygonDG {
     const Coefficients & dati;
     std::vector<std::shared_ptr<BoundaryCondition>> BCs;
     std::vector<int> Diri_tags;
+    //! -1 for SIP, 1 for NSIP or 0
+    int method = -1;
     Eigen::SparseLU<SparseMatrixXd> solver;
     bool solver_not_define = 1;
 
@@ -96,6 +98,9 @@ namespace PolygonDG {
     /*! It has to apply boundary condition updating the BC source at
     the given time */
     void update_rhs(double time);
+
+    //! Set -1 to use SIP, 1 to use NSIP, 0 otherwise
+    void set_method(int met);
 
     //! Return the Mass Matrix \f$ \int_{\Omega} (u * v ) dx \f$
     inline const SparseMatrixXd & get_M() const {return M;};
