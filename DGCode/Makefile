@@ -110,7 +110,7 @@ install:
 	cp $(LIB_DIR)/* $(POLYGONDG_LIB)
 
 uninstall:
-	@$(RM) -r -v $(POLYGONDG_PATH)/PolygonDG
+	@$(RM) -r -v $(POLYGONDG_PATH)/PolygonDgLib
 
 doc: $(HEADERS) $(SRCS) $(TEST_SRCS) mainpage.dox Doxyfile
 	@mkdir -p $(DOC_DIR)

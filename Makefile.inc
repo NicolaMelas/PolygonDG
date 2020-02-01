@@ -3,38 +3,35 @@
 #############################################
 
 # Enter the directory where the Eigen library headers are:
-EIGEN_INC  = /vagrant/eigen
+EIGEN_INC  = /usr/local/include/eigen3
 
 # Enter the directory where the Eigen unsupported library headers are:
-EIGEN_INC_UN  = /vagrant/eigen/unsupported
+EIGEN_INC_UN  = /usr/local/include/eigen3/unsupported
 
 # Enter muparserx include directory
-MUPX_INC = /vagrant/pacs-examples/Extras/muparserx/muparserx/parser
-MUPX_LIB = /vagrant/pacs-examples/Extras/muparserx/muparserx
+MUPX_INC = /usr/local/include/muparserx/
+MUPX_LIB = /usr/local/lib/
 
 # Enter cgal include directory
-CG_INC = /u/sw/pkgs/toolchains/gcc-glibc/7/pkgs/cgal/4.9/include
-CG_LIB = /u/sw/pkgs/toolchains/gcc-glibc/7/pkgs/cgal/4.9/lib/
+CG_INC = /usr/local/include/
+CG_LIB = /usr/local/lib/
 
 # Enter boost include directory
-BOOST_INC = /vagrant/boost
+BOOST_INC = /usr/include/
 
 # Enter Qhull include directory
-QHULL_INC = /vagrant/qhull-2019.1/src
-QHULL_LIB = /vagrant/qhull-lib
+QHULL_INC = /usr/local/include/
+QHULL_LIB = /usr/local/lib/
 
-# Enter the directory where the GetPot header is (needed only by the executables):
-GETPOT_INC = /vagrant/PolygonDg/DGCode/externalinclude
-
-# Enter the directory where the external header muParserXInterface is :
-EXT_INC = /vagrant/PolygonDg/DGCode/externalinclude
+# Enter the directory where the GetPot header is (needed only by the executables): 
+GETPOT_INC = ./externalinclude
 
 #enter other directories if needed
 OTHER_INC=
 OTHER_LIB=
 
 # Enter the directory where you want to install the library
-POLYGONDG_PATH = /vagrant/
+POLYGONDG_PATH = /home/nicola/Scrivania/TestLib
 
 ##########
 # Compiler
@@ -45,6 +42,11 @@ CXX = g++
 ##########################################################################################
 #################################	NOT MODIFIABLE PART ###################################
 ##########################################################################################
+
+
+#muParserXInterface header :
+EXT_INC = ./externalinclude
+
 
 ###################
 # Compilation flags
