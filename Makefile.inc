@@ -23,7 +23,8 @@ BOOST_INC = /usr/include/
 QHULL_INC = /usr/local/include/
 QHULL_LIB = /usr/local/lib/
 
-# Enter the directory where the GetPot header is (needed only by the executables): 
+# Enter the directory where the GetPot header is (needed only by the executables):
+# change if you want to use your own version 
 GETPOT_INC = ./externalinclude
 
 #enter other directories if needed

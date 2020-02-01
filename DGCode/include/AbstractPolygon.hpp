@@ -12,15 +12,6 @@
 #include <utility>
 #include <memory>
 #include <Eigen/Dense>
-#include <boost/geometry.hpp>
-#include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/geometries/polygon.hpp>
-#include <boost/config.hpp>
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/cuthill_mckee_ordering.hpp>
-#include <boost/graph/properties.hpp>
-#include <boost/graph/bandwidth.hpp>
-#include <boost/foreach.hpp>
 #include "Edge.hpp"
 #include "types.hpp"
 
