@@ -117,6 +117,7 @@ bcs.push_back(std::make_shared<DirichletBC>(diri2));
 bcs.push_back(std::make_shared<DirichletBC>(diri3));
 bcs.push_back(std::make_shared<NeumannBC>(neum1));
 ElastodynamicsProblem problem(femregion, coefficients, bcs);
+//problem.set_method(1);
 problem.assemble();
 
 double time = t0-dt;
@@ -141,7 +142,7 @@ for (std::size_t mnb = 1; mnb <= nstep;mnb++){
   auto start = std::chrono::system_clock::now();
   problem.solve(solution, u1old, u2old);
   auto middle = std::chrono::system_clock::now();
-  
+
   if (f_time(time-dt)!=0){
     double multiplier = f_time(time)/f_time(time-dt);
     problem.modify_time_rhs(multiplier);

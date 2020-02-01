@@ -117,6 +117,7 @@ bcs.push_back(std::make_shared<DirichletBC>(diri2));
 bcs.push_back(std::make_shared<DirichletBC>(diri3));
 bcs.push_back(std::make_shared<NeumannBC>(neum1));
 ElastodynamicsProblem problem(femregion, coefficients, bcs);
+//problem.set_method(1);
 problem.assemble();
 
 double time = t0-dt;
