@@ -327,7 +327,7 @@ namespace PolygonDG {
 
   void ElastodynamicsProblem::set_method(int met) {
     if(met !=-1 && met !=1 && met !=0)
-      throw std::runtime_error("The function set_method can set only values: -1, 1 or 0")
+      throw std::runtime_error("The function set_method can set only values: -1, 1 or 0");
     method = met;
   }
 
